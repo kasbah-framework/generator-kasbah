@@ -32,9 +32,11 @@ module.exports = Generator.extend({
     this.fs.copyTpl(this.templatePath('src/ContentManagement/**/*'), this.destinationPath('src/' + this.props.namespace + '.ContentManagement'), this.props);
     this.fs.copy(this.templatePath('global.json'), this.destinationPath('global.json'));
     this.fs.copy(this.templatePath('.gitignore'), this.destinationPath('.gitignore'));
+    // TODO: remove this once the package is released on NuGet
+    this.fs.copy(this.templatePath('NuGet.config'), this.destinationPath('NuGet.config'));
   },
 
   install: function () {
-
+    this.spawnCommand('dotnet', ['restore']);
   }
 });

@@ -11,7 +11,7 @@
     "Microsoft.Extensions.Logging.Console": "1.1.0",
     "Microsoft.Extensions.Logging.Debug": "1.1.0",
     "Kasbah.Web.ContentManagement": "1.0.0-*",
-    "TakeOffGo.Web": "1.0.0-*"
+    "<%= namespace %>": "1.0.0-*"
   },
   "frameworks": {
     "netcoreapp1.1": {

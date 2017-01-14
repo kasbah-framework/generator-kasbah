@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Kasbah.Content.Models;
 
-namespace <%= namespace %>.Web.Models
+namespace <%= namespace %>.Models
 {
     public class HomePage : Item
     {
