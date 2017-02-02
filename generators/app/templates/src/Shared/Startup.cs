@@ -13,18 +13,36 @@ namespace <%= namespace %>
         {
             services.AddSingleton(new Kasbah.DataAccess.ElasticSearch.ElasticSearchDataAccessProviderSettings
             {
-                Node = "http://localhost:32769",
+                Node = Environment.GetEnvironmentVariable("KASBAH_CACHE"),
                 IndexPrefix = "<%= alias %>"
             });
             services.AddTransient<IDataAccessProvider, Kasbah.DataAccess.ElasticSearch.ElasticSearchDataAccessProvider>();
 
+            // TODO: You'll probably want to change this...
             services.AddSingleton(new Kasbah.Media.LocalStorageMediaProviderSettings
             {
                 ContentRoot = Path.Combine(Directory.GetCurrentDirectory(), "../_media")
             });
             services.AddTransient<IMediaStorageProvider, Kasbah.Media.LocalStorageMediaProvider>();
+            // ... to maybe use S3?
+            /*
+            services.AddSingleton(new Kasbah.Media.S3.S3MediaProviderSettings
+            {
+                Region = "...",
+                BucketName = "...",
+                AwsAccessKeyId = "...",
+                AwsSecretAccessKey = "..."
+            });
+            services.AddTransient<IMediaStorageProvider, Kasbah.Media.S3.S3MediaProvider>();
+            */
 
             services.AddTransient<IKasbahWebRegistration, WebRegistration>();
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = Environment.GetEnvironmentVariable("KASBAH_CACHE");
+                options.InstanceName = "kasbah_<%= alias %>";
+            });
 
             return services;
         }
