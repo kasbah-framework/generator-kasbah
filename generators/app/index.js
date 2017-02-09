@@ -27,17 +27,20 @@ module.exports = Generator.extend({
   },
 
   writing: function () {
-    this.fs.copyTpl(this.templatePath('src/Shared/**/*'), this.destinationPath('src/' + this.props.namespace), this.props);
-    this.fs.copyTpl(this.templatePath('src/ContentDelivery/**/*'), this.destinationPath('src/' + this.props.namespace + '.ContentDelivery'), this.props);
-    this.fs.copyTpl(this.templatePath('src/ContentManagement/**/*'), this.destinationPath('src/' + this.props.namespace + '.ContentManagement'), this.props);
-    this.fs.copyTpl(this.templatePath('.vscode/**/*'), this.destinationPath('.vscode/'), this.props);
-    this.fs.copy(this.templatePath('global.json'), this.destinationPath('global.json'));
-    this.fs.copy(this.templatePath('.gitignore'), this.destinationPath('.gitignore'));
+    this.fs.copyTpl(this.templatePath('src/Shared/**/*'), this.destinationPath(this.props.alias + '/src/' + this.props.namespace), this.props);
+    this.fs.copyTpl(this.templatePath('src/ContentDelivery/**/*'), this.destinationPath(this.props.alias + '/src/' + this.props.namespace + '.ContentDelivery'), this.props);
+    this.fs.copyTpl(this.templatePath('src/ContentManagement/**/*'), this.destinationPath(this.props.alias + '/src/' + this.props.namespace + '.ContentManagement'), this.props);
+    this.fs.copyTpl(this.templatePath('.vscode/**/*'), this.destinationPath(this.props.alias + '/.vscode/'), this.props);
+    this.fs.copy(this.templatePath('.gitignore'), this.destinationPath(this.props.alias + '/.gitignore'));
+    this.fs.copyTpl(this.templatePath('Shared.csproj'), this.destinationPath(this.props.alias + '/src/' + this.props.namespace + '/' + this.props.namespace + '.csproj'), this.props);
+    this.fs.copyTpl(this.templatePath('ContentDelivery.csproj'), this.destinationPath(this.props.alias + '/src/' + this.props.namespace + '.ContentDelivery/' + this.props.namespace + '.ContentDelivery.csproj'), this.props);
+    this.fs.copyTpl(this.templatePath('ContentManagement.csproj'), this.destinationPath(this.props.alias + '/src/' + this.props.namespace + '.ContentManagement/' + this.props.namespace + '.ContentManagement.csproj'), this.props);
     // TODO: remove this once the package is released on NuGet
-    this.fs.copy(this.templatePath('NuGet.config'), this.destinationPath('NuGet.config'));
+    this.fs.copy(this.templatePath('NuGet.config'), this.destinationPath(this.props.alias + '/NuGet.config'));
+    this.fs.copyTpl(this.templatePath('Solution.sln'), this.destinationPath(this.props.alias + '/' + this.props.namespace + '.sln'), this.props);
   },
 
   install: function () {
-    this.spawnCommand('dotnet', ['restore']);
+    this.spawnCommand('dotnet', ['restore', this.props.alias]);
   }
 });

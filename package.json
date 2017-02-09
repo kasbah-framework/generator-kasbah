@@ -1,6 +1,6 @@
 {
   "name": "generator-kasbah",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Creates the project structure for a Kasbah driven website",
   "homepage": "https://www.kasbah.io/",
   "author": {
@@ -46,10 +46,5 @@
       "mocha": true
     }
   },
-  "repository": "git@gitlab.com:brendanmckenzie/kasbah.git",
-  "scripts": {
-    "prepublish": "gulp prepublish",
-    "test": "gulp"
-  },
-  "private": true
+  "repository": "git@gitlab.com:brendanmckenzie/kasbah.git"
 }
