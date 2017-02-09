@@ -25,6 +25,7 @@ namespace <%= namespace %>
                     .FieldCategory(nameof(HomePage.Body), "Content")
                     .SetOption("view", "HomePage");
             });
+            typeRegistry.Register<SampleModel>();
         }
     }
 }
