@@ -12,12 +12,11 @@ namespace <%= namespace %>
     {
         public static IServiceCollection Add<%= namespace %>Web(this IServiceCollection services)
         {
-            services.AddSingleton(new Kasbah.DataAccess.ElasticSearch.ElasticSearchDataAccessProviderSettings
+            services.AddSingleton(new Kasbah.DataAccess.Npgsql.NpgsqlSettings
             {
-                Node = Environment.GetEnvironmentVariable("KASBAH_CACHE"),
-                IndexPrefix = "<%= alias %>"
+                ConnectionString = Environment.GetEnvironmentVariable("KASBAH_DB")
             });
-            services.AddTransient<IDataAccessProvider, Kasbah.DataAccess.ElasticSearch.ElasticSearchDataAccessProvider>();
+            services.AddTransient<Kasbah.Content.IContentProvider, Kasbah.DataAccess.Npgsql.ContentProvider>();
 
             // TODO: You'll probably want to change this...
             services.AddSingleton(new Kasbah.Media.LocalStorageMediaProviderSettings

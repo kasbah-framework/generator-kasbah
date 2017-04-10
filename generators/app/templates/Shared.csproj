@@ -13,13 +13,13 @@
 
   <ItemGroup Condition="!Exists('$(KasbahDir)/src/Kasbah')">
     <PackageReference Include="Kasbah" Version="1.0.0-*" />
-    <PackageReference Include="Kasbah.DataAccess.ElasticSearch" Version="1.0.0-*" />
+    <PackageReference Include="Kasbah.DataAccess.Npgsql" Version="1.0.0-*" />
     <PackageReference Include="Kasbah.Media.S3" Version="1.0.0-*" />
   </ItemGroup>
 
   <ItemGroup Condition="Exists('$(KasbahDir)/src/Kasbah')">
     <ProjectReference Include="$(KasbahDir)/src/Kasbah/Kasbah.csproj" />
-    <ProjectReference Include="$(KasbahDir)/src/Kasbah.DataAccess.ElasticSearch/Kasbah.DataAccess.ElasticSearch.csproj" />
+    <ProjectReference Include="$(KasbahDir)/src/Kasbah.DataAccess.Npgsql/Kasbah.DataAccess.Npgsql.csproj" />
     <ProjectReference Include="$(KasbahDir)/src/Kasbah.Media.S3/Kasbah.Media.S3.csproj" />
   </ItemGroup>
 
